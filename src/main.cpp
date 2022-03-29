@@ -661,7 +661,7 @@ void setup()
   char stack;
   stackStart = &stack;
   
- // Set up serial
+  // Set up serial
   initialiseSerial();  
 
   // Set up network and obtain an IP address
