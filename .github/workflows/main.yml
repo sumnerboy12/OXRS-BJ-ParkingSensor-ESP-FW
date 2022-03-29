@@ -41,6 +41,6 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "*.bin"
+        artifacts: ".pio/build/release/*.bin"
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
