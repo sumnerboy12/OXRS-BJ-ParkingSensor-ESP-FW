@@ -692,7 +692,7 @@ void loop()
 
   // Handle any REST API requests
   WiFiClient client = _server.available();
-  _api.checkWifi(&client);
+  _api.loop(&client);
 
   // measure the distance (in cm) - defaults to maxDistance if no reading
   int measured = pingDistance();
