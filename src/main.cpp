@@ -188,21 +188,6 @@ void getConfigSchemaJson(JsonVariant json)
   parkRange["type"] = "integer";
 }
 
-void getCommandSchemaJson(JsonVariant json)
-{
-  JsonObject commandSchema = json.createNestedObject("commandSchema");
-  
-  // Command schema metadata
-  commandSchema["$schema"] = JSON_SCHEMA_VERSION;
-  commandSchema["title"] = FW_SHORT_NAME;
-  commandSchema["type"] = "object";
-
-  JsonObject properties = commandSchema.createNestedObject("properties");
-
-  JsonObject restart = properties.createNestedObject("restart");
-  restart["type"] = "boolean";
-}
-
 // calculate our thresholds etc
 void updateThresholds()
 {
@@ -272,7 +257,6 @@ void _apiAdopt(JsonVariant json)
   getSystemJson(json);
   getNetworkJson(json);
   getConfigSchemaJson(json);
-  getCommandSchemaJson(json);
 }
 
 /**
@@ -367,14 +351,6 @@ void _mqttConfig(JsonVariant json)
   }
 
   if (update){ updateThresholds(); }
-}
-
-void _mqttCommand(JsonVariant json)
-{
-  if (json.containsKey("restart") && json["restart"].as<bool>())
-  {
-    ESP.restart();
-  }
 }
 
 void publishParkState()
@@ -607,7 +583,6 @@ void initialiseMqtt(byte * mac)
   _mqtt.onConnected(_mqttConnected);
   _mqtt.onDisconnected(_mqttDisconnected);
   _mqtt.onConfig(_mqttConfig);
-  _mqtt.onCommand(_mqttCommand);
   
   // Start listening for MQTT messages
   _mqttClient.setCallback(_mqttCallback);  
